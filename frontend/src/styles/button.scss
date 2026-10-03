@@ -1,0 +1,19 @@
+.button{
+    border: none;
+    outline: none;
+    padding-inline: 1.5rem;
+    padding-block: 12px;
+    border-radius: 1rem;
+    cursor: pointer;
+
+    transition: all 0.3s ease-in-out;
+    &.primary-button{
+        background-color: rgb(214, 33, 105);
+
+    }
+
+    &:active{ // Make the element 110% of its original size. sligtly bigger than original 
+        transform: scale(0.9);
+    }
+}
+// That would mean .primary-button is a child of .button.

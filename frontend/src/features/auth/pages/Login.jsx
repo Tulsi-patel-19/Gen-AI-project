@@ -1,14 +1,36 @@
 import React from 'react'
 import "../auth.form.scss"
-import { Navigate ,Link, useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { useAuth } from '../hooks/useAuth.js';
+import { useState } from 'react';
+
 
 const Login = () => {
 
+
+  // take loading and handlelogin from useAuth
+  // get loading and handlelogin from useAuth
+  const { loading, handleLogin } = useAuth()
+
   const navigate = useNavigate();
 
-  const handlesumbit =(e) =>{
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+
+  const handlesumbit = async (e) => {
     e.preventDefault();
+    const success = await handleLogin({ email, password })
+
+    if (success) {
+      navigate("/")
+    }
   }
+
+  if (loading) {
+    return (<main><h1>Loading...........</h1></main>)
+  }
+
   return (
     <main>
       <div className="form-container">
@@ -18,14 +40,16 @@ const Login = () => {
           <div className="input-group">
 
             <label htmlFor='email'>Email</label>
-            <input type='email' id='email'name='email'placeholder='Enter Email Address'/>
+            <input
+              onChange={(e) => { setEmail(e.target.value) }} type='email' id='email' name='email' placeholder='Enter Email Address' />
 
           </div>
 
           <div className="input-group">
 
             <label htmlFor='password'>Password</label>
-            <input type='password' id='password'name='password'placeholder='Enter Password'/>
+            <input
+              onChange={(e) => { setPassword(e.target.value) }} type='password' id='password' name='password' placeholder='Enter Password' />
 
           </div>
           <button className='button primary-button'>Login</button>

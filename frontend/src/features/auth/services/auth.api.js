@@ -10,20 +10,19 @@ export async function register({username , email , password}) {
     try{
         const response = await api.post('/api/auth/register',{
            username , email , password 
-        },
-    
-)
+        })
 
     return response.data
     }
 
     catch(err){
         console.log(err)
+        throw err;
     }
     
 }
 
-export async function login(email , password) {
+export async function login({email , password}) {
 
     try{
 
@@ -57,7 +56,8 @@ export async function getme() {
         return response.data
 
     } catch(err){
-        console.log(err)
+        console.log(err);
+        throw err;
     }
 }
 
